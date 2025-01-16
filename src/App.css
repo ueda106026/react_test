@@ -1,0 +1,90 @@
+header {
+  height: auto;
+  background-color: burlywood;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+main {
+  height: auto;
+  background-color: #b0c4de;
+}
+
+h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.dataBase {
+  margin: 0 auto;
+}
+
+thead {
+  text-align: left;
+}
+
+footer {
+  height: 100px;
+  background-color: aquamarine;
+  text-align: center;
+  font-size: 30px;
+}
+
+.mainButton {
+  margin-right: 20px;
+  width: 150px;
+}
+
+.contentsButton {
+  margin: 0px 20px;
+  width: 150px;
+}
+
+.registrationButton {
+  margin: 0px 20px;
+  width: 150px;
+}
+
+.contents {
+  text-align: center;
+}
+
+.registration {
+  margin: 0 auto;
+  height: 200px;
+  background-color: #b0c4de;
+}
+
+.regTable {
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+.contentsRecord {
+  text-align: right;
+}
+
+.regButtonRecord {
+  text-align: center;
+}
+
+.complete {
+  text-align: center;
+}
+
+.completeButton {
+  width: 150px;
+}
+
+.completeMassage {
+  font-size: 30px;
+  text-align: center;
+}
+
+.errorMassage {
+  text-align: center;
+  font-size: 15px;
+  color: red;
+  font-weight: bold;
+}
