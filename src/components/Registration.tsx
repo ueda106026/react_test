@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import '../App.css';
 
 export const Registration = () => {
 
     const [errorMassage, setErrorMassage] = useState<string>(''); // 状態として定義
+    const formRef = useRef<HTMLFormElement | null>(null); // フォーマットのメソッドをフックに定義
 
     
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -13,15 +14,12 @@ export const Registration = () => {
         const title: string = titleElement ? titleElement.value : '';
         const contents: string = contentsElement ? contentsElement.value : '';
 
-        if (title === null || title === "" || contents === null || contents === "") {
+        if (title === null || title === '' || contents === null || contents === '') {
             event.preventDefault(); // デフォルトのフォーム送信動作を防止
             setErrorMassage('項目を入力してください。');
         } else {
-            // event.preventDefault(); // これは後で消して
-            
-            // ここにsubmitの処理を書く
-
-            setErrorMassage('');
+            formRef.current!.submit(); // 入力値が空でなければsubmit
+            setErrorMassage(''); // エラーメッセージを空にする
         }
     }
 
@@ -32,7 +30,7 @@ export const Registration = () => {
             <h1>登録画面</h1>
             {/* <form method="post" action="http://localhost:3000/registration/input"> */}
             <div className="errorMassage">{errorMassage}</div>
-            <form>
+            <form ref={formRef} method="post" action="http://localhost:3000/registration/input">
                 <table className="regTable">
                     <tbody>
                         <tr>
