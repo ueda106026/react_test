@@ -4,10 +4,16 @@ import '../App.css';
 export const Registration = () => {
 
     const [errorMassage, setErrorMassage] = useState<string>(''); // 状態として定義
+    const [errorMassageTitle, setErrorMassageTitle] = useState<string>(''); // 状態として定義
+    const [errorMassageContents, setErrorMassageContents] = useState<string>(''); // 状態として定義
     const formRef = useRef<HTMLFormElement | null>(null); // フォーマットのメソッドをフックに定義
 
     
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+        setErrorMassage(''); // エラーメッセージを空にする
+        setErrorMassageTitle(''); // エラーメッセージを空にする
+        setErrorMassageContents(''); // エラーメッセージを空にする
+
         const titleElement = document.getElementById('title') as HTMLInputElement | null;
         const contentsElement = document.getElementById('contents') as HTMLInputElement | null;
         
@@ -17,9 +23,18 @@ export const Registration = () => {
         if (title === null || title === '' || contents === null || contents === '') {
             event.preventDefault(); // デフォルトのフォーム送信動作を防止
             setErrorMassage('項目を入力してください。');
+        } else if (title.length > 30) {
+            event.preventDefault(); // デフォルトのフォーム送信動作を防止
+            setErrorMassageTitle('タイトルは30文字以内で入力してください。');
+        } else if (contents.length > 50) {
+            event.preventDefault(); // デフォルトのフォーム送信動作を防止
+            setErrorMassageContents('内容は50文字以内で入力してください。');
         } else {
-            formRef.current!.submit(); // 入力値が空でなければsubmit
+            event.preventDefault(); // デフォルトのフォーム送信動作を防止
+            formRef.current!.submit(); // 入力チェックをクリアしたらsubmit
             setErrorMassage(''); // エラーメッセージを空にする
+            setErrorMassageTitle(''); // エラーメッセージを空にする
+            setErrorMassageContents(''); // エラーメッセージを空にする
         }
     }
 
@@ -28,8 +43,9 @@ export const Registration = () => {
     return (
         <div className="registration">
             <h1>登録画面</h1>
-            {/* <form method="post" action="http://localhost:3000/registration/input"> */}
             <div className="errorMassage">{errorMassage}</div>
+            <div className="errorMassage">{errorMassageTitle}</div>
+            <div className="errorMassage">{errorMassageContents}</div>
             <form ref={formRef} method="post" action="http://localhost:3000/registration/input">
                 <table className="regTable">
                     <tbody>
@@ -43,7 +59,7 @@ export const Registration = () => {
                         </tr>
                         <tr>
                             <td colSpan={2} className="regButtonRecord">
-                                <button className="regButton" onClick={handleClick}>検索実行</button>
+                                <button className="regButton" onClick={handleClick}>登録</button>
                             </td>
                         </tr>
                     </tbody>

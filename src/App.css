@@ -88,3 +88,17 @@ footer {
   color: red;
   font-weight: bold;
 }
+
+.searchTable {
+  margin: 0 auto;
+  font-size: 20px;
+}
+
+.searchButtonRecord {
+  text-align: center;
+}
+
+.outputMassage {
+  text-align: center;
+  font-size: 20px;
+}

@@ -43,11 +43,30 @@ app.get('/', async (req, res) => {
 app.post('/registration/input', async (req, res) => {
   const {title, contents} = req.body;
 
-  pool.query('INSERT INTO test_data(title, contents) VALUES($1, $2)',
+  await pool.query('INSERT INTO test_data(title, contents) VALUES($1, $2)',
     [title, contents],
     (error, results) => {
       if (error) throw error;
     }
   );
   res.redirect('http://localhost:5173/registration/complete');
+});
+
+// 検索
+app.get('/search', async (req, res) => {
+  try {
+    const {title, contents} = req.query;
+
+    const titleSearch = `%${title}%`;
+    const contentsSearch = `%${contents}%`;
+
+    const result = await pool.query('SELECT * FROM test_data WHERE title LIKE $1 AND contents LIKE $2 ORDER BY id DESC',
+      [titleSearch, contentsSearch]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query failed' });
+  }
 });

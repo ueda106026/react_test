@@ -19,7 +19,7 @@ export const Main = () => {
   return (
     <main>
       <div className="main">
-        <h1>PostgreSQL Data</h1>
+        <h1>コンテンツ</h1>
         <table className="dataBase">
           <thead>
             <tr>
@@ -30,7 +30,7 @@ export const Main = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {data.map((item: any) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.title}</td>
