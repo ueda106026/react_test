@@ -16,6 +16,12 @@ export const Main = () => {
       });
   }, []);
 
+  const  handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault(); // デフォルトのフォーム送信動作を防止
+
+    
+}
+
   return (
     <main>
       <div className="main">
@@ -27,6 +33,7 @@ export const Main = () => {
               <th>ID</th>
               <th>タイトル</th>
               <th>内容</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +42,10 @@ export const Main = () => {
                 <td>{item.id}</td>
                 <td>{item.title}</td>
                 <td>{item.contents}</td>
+                <td>
+                  <button className="changeButton" id="changeButton">変更</button>
+                  <button className="deleteButton" id="deleteButton" onClick={handleClick}>削除</button>
+                </td>
               </tr>
             ))}
           </tbody>

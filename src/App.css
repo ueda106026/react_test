@@ -102,3 +102,25 @@ footer {
   text-align: center;
   font-size: 20px;
 }
+
+.changeButton {
+  margin-right: 5px;
+  background-color: #f08080;
+  font-size: 15px;
+  border: none;
+}
+
+:hover.changeButton {
+  background-color: #f19e9e;
+}
+
+.deleteButton {
+  margin-left: 5px;
+  background-color: #ffefd5;
+  font-size: 15px;
+  border: none;  
+}
+
+:hover.deleteButton {
+  background-color: #fef6ea;
+}
