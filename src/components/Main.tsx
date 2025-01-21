@@ -14,39 +14,29 @@ export const Main = () => {
         setData(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error); // リクエスト失敗時の処理
       });
   }, []);
 
   // 変更処理
   const handleChange = (id: number, title: string, contents: string): void => {
-    // 画面遷移, stateに入力フォームの値を引き渡す
-    navigate("/update", {state: {id, title, contents}}); // 検索結果画面へ遷移する
+    // 検索結果画面へ遷移する, stateに入力フォームの値を引き渡す
+    navigate("/update", { state: { id, title, contents } });
   };
-  
+
   // 削除処理
-  const handleDelete = async (id: number, title:string): Promise<void> => {
+  const handleDelete = (id: number, title: string): void => {
+    const dataToSend = {id, title};
     if (window.confirm(`タイトル：${title}\nこれを削除してもよろしいでしょうか？`)) {
       // サーバーへリクエスト送信
-      try {
-        const response = await fetch("http://localhost:3000/delete", {
-          method: "DELETE", // HTTPメソッド
-          headers: {
-            "Content-Type": "application/json", // JSON形式を指定
-          },
-          body: JSON.stringify({ id }), // JSONに変換して送信
+      axios.post('http://localhost:3000/delete', dataToSend)
+        .then(response => {
+          // console.log('Data created:', response.data); // リクエスト成功時の処理
+          setData((prevData) => prevData.filter((item: any) => item.id !== id)); // setDataを更新
+        })
+        .catch(error => {
+          console.error('Error creating data:', error); // リクエスト失敗時の処理
         });
-    
-        if (!response.ok) {
-          throw new Error(`HTTPエラー: ${response.status}`);
-        }
-
-        // setDataを更新
-        setData((prevData) => prevData.filter((item: any) => item.id !== id));
-
-      } catch (error) {
-        console.error("エラー:", error);
-      }
     }
   }
 

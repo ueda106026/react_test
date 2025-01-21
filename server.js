@@ -41,22 +41,27 @@ app.get('/', async (req, res) => {
 
 // 新規登録
 app.post('/registration/input', async (req, res) => {
-  const {title, contents} = req.body;
+  try{
+    const {title, contents} = req.body;
 
-  await pool.query('INSERT INTO test_data(title, contents) VALUES($1, $2)',
-    [title, contents],
-    (error, results) => {
-      if (error) throw error;
-    }
-  );
-  res.redirect('http://localhost:5173/registration/complete');
+    await pool.query('INSERT INTO test_data(title, contents) VALUES($1, $2)',
+      [title, contents],
+      (error, results) => {
+        if (error) throw error;
+      }
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query failed' });
+  }
 });
 
 // 検索
 app.get('/search', async (req, res) => {
   try {
     const {title, contents} = req.query;
-
     const titleSearch = `%${title}%`;
     const contentsSearch = `%${contents}%`;
 
@@ -74,10 +79,10 @@ app.get('/search', async (req, res) => {
 // 変更
 app.post('/update', async (req, res) => {
   try {
-    const {inputId, title, contents} = req.body;
+    const {locationId, title, contents} = req.body;
 
     const result = await pool.query('UPDATE test_data SET title = $2, contents = $3 WHERE id = $1',
-      [inputId, title, contents]
+      [locationId, title, contents]
     );
 
     res.json(result.rows);
@@ -88,7 +93,7 @@ app.post('/update', async (req, res) => {
 });
 
 // 削除
-app.delete('/delete', async (req, res) => {
+app.post('/delete', async (req, res) => {
   try {
     const {id} = req.body;
 
