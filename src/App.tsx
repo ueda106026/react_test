@@ -8,6 +8,7 @@ import { Registration } from './components/Registration';
 import { RegistrationComplete } from './components/RegistrationComplete';
 import { Search } from './components/Search';
 import { SearchResult } from './components/SearchResult';
+import { Update } from './components/Update';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/search/result" element={<SearchResult />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/registration/complete" element={<RegistrationComplete />} />
+        <Route path="/update" element={<Update />} />
       </Routes>
       <Footer />
     </BrowserRouter>

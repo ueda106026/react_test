@@ -50,7 +50,6 @@ export const SearchResult = () => {
           <table className="dataBase">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>タイトル</th>
                 <th>内容</th>
               </tr>
@@ -58,7 +57,6 @@ export const SearchResult = () => {
             <tbody>
               {searchResults.map((item: any) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
                   <td>{item.title}</td>
                   <td>{item.contents}</td>
                 </tr>

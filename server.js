@@ -70,3 +70,35 @@ app.get('/search', async (req, res) => {
     res.status(500).json({ error: 'Database query failed' });
   }
 });
+
+// 変更
+app.post('/update', async (req, res) => {
+  try {
+    const {inputId, title, contents} = req.body;
+
+    const result = await pool.query('UPDATE test_data SET title = $2, contents = $3 WHERE id = $1',
+      [inputId, title, contents]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query failed' });
+  }
+});
+
+// 削除
+app.delete('/delete', async (req, res) => {
+  try {
+    const {id} = req.body;
+
+    const result = await pool.query('DELETE FROM test_data WHERE id = $1;',
+      [id]
+    );
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query failed' });
+  }
+});

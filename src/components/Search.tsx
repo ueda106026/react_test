@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'
+import '../App.css';
 
 export const Search = () => {
     const [errorMassageTitle, setErrorMassageTitle] = useState<string>(''); // 状態として定義
